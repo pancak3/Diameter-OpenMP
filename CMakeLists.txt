@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.6)
-project(project1)
+project(graphDiameter)
 
-set(SOURCE_FILES project1.cpp headers/graph.h headers/project1.h skeleton.cpp)
-add_executable(project1 ${SOURCE_FILES})
+set(SOURCE_FILES graph-diameter.cpp)
+add_executable(graphDiameter ${SOURCE_FILES})
