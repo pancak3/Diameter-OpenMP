@@ -1,2 +1,3 @@
-randomgraph
-idea
+headers/randomgraph
+.idea/
+cmake-build-debug
