@@ -1,12 +1,14 @@
 #include <vector>
 #include "iostream"
+#include "queue"
 
 using namespace std;
 using std::cin;
 using std::cout;
+using std::queue;
 
 struct Edge {
-    int fromVertex, toVertex, edgeNum, weight;
+    int fromVertex, toVertex, weight;
     struct Edge *next;
 };
 
@@ -41,10 +43,18 @@ DirectedGraph::~DirectedGraph() {
     delete[] vertexList;
 }
 
+/***
+ * init with standard I/O
+ *
+ * */
 void DirectedGraph::init() {
     cin >> vertexCount;
     cin >> edgeCount;
     vertexList = new Vertex[vertexCount];
+    /**
+     * idea Debug won't show the arr structure of vertexList by default,
+     * wasted half a day here :(
+     * **/
     for (int i = 0; i < vertexCount; i++) {
         vertexList[i].vertexNum = i;
         vertexList[i].next = NULL;
@@ -67,6 +77,7 @@ void DirectedGraph::init() {
     }
 }
 
+
 void DirectedGraph::print() {
     for (int i = 0; i < vertexCount; i++) {
 
@@ -83,10 +94,18 @@ void DirectedGraph::print() {
     }
 }
 
+struct Paths{
+    int length;
+    vector<int> detail;
+};
+void findShortestPathBFS(DirectedGraph *graph){
+    queue<Edge> edgeQueue;
+    vector<Paths> paths;
+
+}
 int main() {
     DirectedGraph graph{};
     graph.init();
-    graph.print();
-    return 0;
 
+    return 0;
 }
