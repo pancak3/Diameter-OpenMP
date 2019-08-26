@@ -1,39 +1,92 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include "search.h"
+#include <vector>
+#include "iostream"
 
-int values[] = {88, 56, 100, 2, 25};
+using namespace std;
+using std::cin;
+using std::cout;
 
-int cmpfunc(const void *a, const void *b) {
-    return (*(int *) a - *(int *) b);
+struct Edge {
+    int fromVertex, toVertex, edgeNum, weight;
+    struct Edge *next;
+};
+
+struct Vertex {
+    int vertexNum;
+    struct Edge *next;
+};
+
+class DirectedGraph {
+public:
+    ~DirectedGraph();
+
+    void init();
+
+    void print();
+
+private:
+    int vertexCount, edgeCount;
+    Vertex *vertexList;
+};
+
+DirectedGraph::~DirectedGraph() {
+    for (int i = 0; i < vertexCount; i++) {
+        Edge *tmpEdge = vertexList[i].next;
+        Edge *currentEdge = NULL;
+        while (tmpEdge) {
+            currentEdge = tmpEdge;
+            tmpEdge = tmpEdge->next;
+            delete currentEdge;
+        }
+    }
+    delete[] vertexList;
 }
 
-int compare(int *x, int *y)
-{
-    return (*x - *y);
+void DirectedGraph::init() {
+    cin >> vertexCount;
+    cin >> edgeCount;
+    vertexList = new Vertex[vertexCount];
+    for (int i = 0; i < vertexCount; i++) {
+        vertexList[i].vertexNum = i;
+        vertexList[i].next = NULL;
+    }
+    for (int i = 0; i < edgeCount; i++) {
+        Edge *tmpEdge = new Edge();
+        cin >> tmpEdge->fromVertex;
+        cin >> tmpEdge->toVertex;
+        cin >> tmpEdge->weight;
+        tmpEdge->next = NULL;
+        if (vertexList[tmpEdge->fromVertex].next) {
+            Edge *nextEdge = vertexList[tmpEdge->fromVertex].next;
+            while (nextEdge->next) {
+                nextEdge = nextEdge->next;
+            }
+            nextEdge->next = tmpEdge;
+        } else {
+            vertexList[tmpEdge->fromVertex].next = tmpEdge;
+        }
+    }
 }
+
+void DirectedGraph::print() {
+    for (int i = 0; i < vertexCount; i++) {
+
+    }
+    for (int i = 0; i < vertexCount; ++i) {
+        Edge *tmpEdge = vertexList[i].next;
+        cout << "vertex:" << vertexList[i].vertexNum;
+        while (tmpEdge) {
+            cout << "->" << tmpEdge->toVertex;
+            cout << "(w:" << tmpEdge->weight << ")";
+            tmpEdge = tmpEdge->next;
+        }
+        cout << "->NULL" << endl;
+    }
+}
+
 int main() {
-    int n;
+    DirectedGraph graph{};
+    graph.init();
+    graph.print();
+    return 0;
 
-    printf("Before sorting the list is: \n");
-    for (n = 0; n < 5; n++) {
-        printf("%d ", values[n]);
-    }
-
-    qsort(values, 5, sizeof(int), cmpfunc);
-
-    printf("\nAfter sorting the list is: \n");
-    for (n = 0; n < 5; n++) {
-        printf("%d \n", values[n]);
-    }
-    int array[5] = {44, 69, 3, 17, 23};
-    size_t elems = 5;
-    int key = 69;
-    int *result;
-    result = (int *) lfind(&key, &array, &elems, sizeof(int), (int (*)(const void *, const void *)) compare);
-    if (result)
-        printf("Key %d found in linear search, res is %d\n", key,*result);
-    else
-        printf("Key %d not found in linear search\n", key);
-    return (0);
 }
