@@ -110,6 +110,7 @@ int diameter(int distance[MAX][MAX], int nodesCount) {
     for (int i = 0; i < nodesCount; ++i) {
         for (int j = 0; j < nodesCount; ++j) {
             if (distance[i][j] != NOT_CONNECTED && diameter < distance[i][j]) {
+                printf("i: %d, j: %d\n",i,j);
                 diameter = distance[i][j];
             }
         }
