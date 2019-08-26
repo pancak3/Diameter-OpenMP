@@ -3,3 +3,4 @@ headers/randomgraph
 cmake-build-debug
 p
 randomgraph
+graph-diameter
