@@ -107,25 +107,37 @@ int main() {
 #include "iostream"
 #include "omp.h"
 #include "queue"
+#include "vector"
 
 using namespace std;
 using std::cin;
 using std::cout;
 using std::queue;
 
+void BFS(int fromVertex, int nodesCount, int givenDistance[6][6]);
+
 int diameter(int givenDistance[6][6], int nodesCount) {
 
     uint64_t start = GetTimeStamp();
-    int k=0;
+
+    vector<int> minDistances[nodesCount][nodesCount];
+
 #pragma omp parallel
-    for (int i = 0; i < nodesCount; ++i) {
-        for (int j = 0; j < nodesCount; ++j) {
-            ++k;
-        }
+    for (int fromVertex = 0; fromVertex < nodesCount; ++fromVertex) {
+        BFS(fromVertex, nodesCount, givenDistance);
+
     }
     printf("Time: %ld us\n", (uint64_t) (GetTimeStamp() - start));
     return 0;
 }
 
-/* The following is the exact command used to compdddile this code */
-/* g++ -O2 graph-diameter.cpp -o grasdph-diameter */
+void BFS(int fromVertex, int nodesCount, int givenDistance[6][6]) {
+    int edge[nodesCount];
+    for (int toVertex = 0; toVertex < nodesCount; ++toVertex) {
+
+    }
+}
+
+
+/* The following is the exact command used to compile this code */
+/* g++ -O2 graph-diameter.cpp -o graph-diameter */
