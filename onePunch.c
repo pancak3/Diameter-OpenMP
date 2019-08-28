@@ -34,12 +34,12 @@ uint64_t GetTimeStamp() {
 
 int main() {
     /* test data area, should be delete before real test*/
-    int testGraph[6][6] = {{MAX, MAX, MAX, MAX, MAX, MAX},
-                           {3,   MAX, MAX, 4,   MAX, MAX},
-                           {MAX, MAX, MAX, MAX, MAX, MAX},
-                           {MAX, 4,   2,   MAX, 5, 3},
-                           {1,   MAX, 4,   MAX, MAX, MAX},
-                           {4,   MAX, MAX, MAX, 5,   MAX}
+    int testGraph[6][6] = {{NOT_CONNECTED, NOT_CONNECTED, NOT_CONNECTED, NOT_CONNECTED, NOT_CONNECTED, NOT_CONNECTED},
+                           {3,             NOT_CONNECTED, NOT_CONNECTED, 4,             NOT_CONNECTED, NOT_CONNECTED},
+                           {NOT_CONNECTED, NOT_CONNECTED, NOT_CONNECTED, NOT_CONNECTED, NOT_CONNECTED, NOT_CONNECTED},
+                           {NOT_CONNECTED, 4,             2,             NOT_CONNECTED, 5, 3},
+                           {1,             NOT_CONNECTED, 4,             NOT_CONNECTED, NOT_CONNECTED, NOT_CONNECTED},
+                           {4,             NOT_CONNECTED, NOT_CONNECTED, NOT_CONNECTED, 5,             NOT_CONNECTED}
     };
 
     printf("The ans is: %d\n", diameter(testGraph, 6));
@@ -104,40 +104,36 @@ int main() {
 
 /******************************************************************************/
 /*  Your changes here */
-#include "iostream"
+#include "stdio.h"
 #include "omp.h"
-#include "queue"
-#include "vector"
+#include "stdlib.h"
+//#include "queue"
+//#include "vector"
 
-using namespace std;
-using std::cin;
-using std::cout;
-using std::queue;
 
-void BFS(int fromVertex, int nodesCount, int givenDistance[6][6]);
+
 
 int diameter(int givenDistance[6][6], int nodesCount) {
 
     uint64_t start = GetTimeStamp();
 
-    vector<int> minDistances[nodesCount][nodesCount];
-
-#pragma omp parallel
-    for (int fromVertex = 0; fromVertex < nodesCount; ++fromVertex) {
-        BFS(fromVertex, nodesCount, givenDistance);
-
-    }
     printf("Time: %ld us\n", (uint64_t) (GetTimeStamp() - start));
     return 0;
 }
 
-void BFS(int fromVertex, int nodesCount, int givenDistance[6][6]) {
-    int edge[nodesCount];
-    for (int toVertex = 0; toVertex < nodesCount; ++toVertex) {
-
+void Dijkstra(int fromVertex, int vertexCount, int graph[MAX][MAX]) {
+    int visitedVertex[vertexCount];
+    int paths[vertexCount];
+    
+    int minEdge, vertex, searchedEdges = 0;
+    while(searchedEdges<vertexCount-1){
+        searchedEdges++;
+        for (int i = 0; i < ; ++i) {
+            
+        }
     }
+    
+
 }
-
-
 /* The following is the exact command used to compile this code */
 /* g++ -O2 graph-diameter.cpp -o graph-diameter */
