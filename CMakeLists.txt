@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.6)
-project(graphDiameter)
+project(onePunch)
 
-set(SOURCE_FILES graph-diameter.cpp)
-add_executable(graphDiameter ${SOURCE_FILES})
+set(SOURCE_FILES onePunch.cpp)
+add_executable(onePunch ${SOURCE_FILES})
