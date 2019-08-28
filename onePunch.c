@@ -125,7 +125,12 @@ int diameter(int givenDistance[MAX][MAX], int vertexCount) {
 
     }
     int diameter = 0;
-
+/*
+ * search maximum distance(diameter) in parallel should be here blow
+ * in these comments, you can find how to get each vertex's distances to other vertices
+ *    EX: *(distancesTable[i] + j)
+ *
+ * */
 //    for (int i = 0; i < vertexCount; ++i) {
 //        int maxDistance = 0;
 //        for (int j = 0; j < vertexCount; ++j) {
