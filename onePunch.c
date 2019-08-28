@@ -104,15 +104,7 @@ int main() {
 
 /******************************************************************************/
 /*  Your changes here */
-#include "iostream"
 #include "omp.h"
-#include "queue"
-#include "vector"
-
-using namespace std;
-using std::cin;
-using std::cout;
-using std::queue;
 
 void BFS(int fromVertex, int nodesCount, int givenDistance[6][6]);
 
@@ -120,11 +112,10 @@ int diameter(int givenDistance[6][6], int nodesCount) {
 
     uint64_t start = GetTimeStamp();
 
-    vector<int> minDistances[nodesCount][nodesCount];
 
 #pragma omp parallel
     for (int fromVertex = 0; fromVertex < nodesCount; ++fromVertex) {
-        BFS(fromVertex, nodesCount, givenDistance);
+
 
     }
     printf("Time: %ld us\n", (uint64_t) (GetTimeStamp() - start));
