@@ -22,27 +22,27 @@ struct pQueue {
     int type;       // type of the priority queue (min/max)
 };
 
-/* MAIN FUNCTION FOR TESTING ONLY */
-
-int main(void) {
-    PQueue *queue = pqueue_create(TYPE_MIN, 10);
-    pqueue_push(queue, 10, 0);
-    pqueue_push(queue, 5, 5);
-    pqueue_push(queue, 7, 3);
-    pqueue_push(queue, 4, 6);
-    pqueue_push(queue, 1, 9);
-    pqueue_push(queue, 8, 2);
-    pqueue_push(queue, 9, 1);
-    pqueue_push(queue, 3, 7);
-    pqueue_push(queue, 2, 8);
-    pqueue_push(queue, 6, 4);
-
-    for (int i = 0; i < 10; i++) {
-        int priority;
-        int value = pqueue_pop(queue, &priority);
-        printf("Priority %d, value %d\n", priority, value);
-    }
-}
+// /* MAIN FUNCTION FOR TESTING ONLY */
+//
+// int main(void) {
+//     PQueue *queue = pqueue_create(TYPE_MIN, 10);
+//     pqueue_push(queue, 10, 0);
+//     pqueue_push(queue, 5, 5);
+//     pqueue_push(queue, 7, 3);
+//     pqueue_push(queue, 4, 6);
+//     pqueue_push(queue, 1, 9);
+//     pqueue_push(queue, 8, 2);
+//     pqueue_push(queue, 9, 1);
+//     pqueue_push(queue, 3, 7);
+//     pqueue_push(queue, 2, 8);
+//     pqueue_push(queue, 6, 4);
+//
+//     for (int i = 0; i < 10; i++) {
+//         int priority;
+//         int value = pqueue_pop(queue, &priority);
+//         printf("Priority %d, value %d\n", priority, value);
+//     }
+// }
 
 /* PRIVATE FUNCTIONS */
 
