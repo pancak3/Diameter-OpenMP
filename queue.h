@@ -18,7 +18,7 @@ PQueue *pqueue_create(int type, int init_size);
 /**
  * Push a new value with associated priority into the priority queue.
  */
-void pqueue_push(PQueue *queue, int priority, int value);
+void pqueue_push(PQueue *queue, int value, int priority);
 
 /**
  * Return the highest/lowest priority value (as applicable) and delete it

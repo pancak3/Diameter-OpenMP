@@ -70,7 +70,7 @@ PQueue *pqueue_create(int type, int init_size) {
     return queue;
 }
 
-void pqueue_push(PQueue *queue, int priority, int value) {
+void pqueue_push(PQueue *queue, int value, int priority) {
     assert(queue);
 
     // expand queue if at max capacity
