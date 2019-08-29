@@ -106,6 +106,7 @@ int main() {
 #include "stdio.h"
 #include "omp.h"
 #include "stdlib.h"
+#include "queue.h"
 
 int *Dijkstra(int fromVertex, int vertexCount, int graph[MAX][MAX]);
 
@@ -149,45 +150,81 @@ int diameter(int givenDistance[MAX][MAX], int vertexCount) {
 }
 
 int *Dijkstra(int fromVertex, int vertexCount, int graph[MAX][MAX]) {
-    int visitedVertex[vertexCount];
+    PQueue *queue = pqueue_create(TYPE_MIN, vertexCount);
+    // int visitedVertex[vertexCount];
 //    int distancesOfThisVertex[vertexCount];
     int *distancesOfThisVertex = malloc(vertexCount * sizeof(int));
 
-    int minEdge, vertexMinEdge = 0, searchedEdgesCount = 0;
+    // int minEdge, vertexMinEdge = 0, searchedEdgesCount = 0;
 
-    for (int i = 0; i < vertexCount; ++i) {
-        visitedVertex[i] = 0;
-        distancesOfThisVertex[i] = graph[fromVertex][i];
-    }
-    visitedVertex[fromVertex] = 1;
-
+    pqueue_push(queue, fromVertex, 0);
     distancesOfThisVertex[fromVertex] = 0;
 
-    while (searchedEdgesCount < vertexCount - 1) {
-        searchedEdgesCount++;
-        minEdge = NOT_CONNECTED;
+    // for (int i = 0; i < vertexCount; ++i) {
+    //     // visitedVertex[i] = 0;
+    //     distancesOfThisVertex[i] = graph[fromVertex][i];
+    // }
+    // visitedVertex[fromVertex] = 1;
 
-        for (int i = 0; i < vertexCount; ++i) {
-            if (visitedVertex[i] == 0 && minEdge > distancesOfThisVertex[i]) {
-                vertexMinEdge = i;
-                minEdge = distancesOfThisVertex[i];
-            }
-        }
+    int curr_vertex, curr_dist;  // current vertex and its distance from source
+    while (pqueue_size(queue) > 0) {
+        int edge_weight;  // distance to neighbour via current vertex
+        int curr_vertex = pqueue_pop(queue, &curr_dist);
 
-        visitedVertex[vertexMinEdge] = 1;
+        for (int i = 0; i < vertexCount; i++) {
+            int next_weight = graph[curr_vertex][i];
+            if (next_weight != NOT_CONNECTED) {
+                int next_dist = curr_dist + next_weight;
 
-        for (int i = 0; i < vertexCount; ++i) {
-            if (visitedVertex[i] == 0 && graph[vertexMinEdge][i] != NOT_CONNECTED &&
-                distancesOfThisVertex[vertexMinEdge] != NOT_CONNECTED) {
-                int tmp = distancesOfThisVertex[vertexMinEdge] + graph[vertexMinEdge][i];
-                if (tmp < distancesOfThisVertex[i]) {
-                    distancesOfThisVertex[i] = distancesOfThisVertex[vertexMinEdge] + graph[vertexMinEdge][i];
+                if (distancesOfThisVertex[i] == NOT_CONNECTED || distancesOfThisVertex[i] > next_dist) {
+                    // update to shorter dist via the current vertex
+                    distancesOfThisVertex[i] = next_dist;
+
+                    // now add to the heap (as distance known/updated)
+                    pqueue_push(queue, i, next_dist);
                 }
-
             }
         }
 
+        // visitedVertex[next_vertex] = 1;
+        //
+        // for (int i = 0; i < vertexCount; ++i) {
+        //     if (visitedVertex[i] == 0 && graph[next_vertex][i] != NOT_CONNECTED &&
+        //         distancesOfThisVertex[next_vertex] != NOT_CONNECTED) {
+        //         int tmp = distancesOfThisVertex[next_vertex] + graph[next_vertex][i];
+        //         if (tmp < distancesOfThisVertex[i]) {
+        //             distancesOfThisVertex[i] = distancesOfThisVertex[next_vertex] + graph[next_vertex][i];
+        //         }
+        //
+        //     }
+        // }
     }
+
+    // while (searchedEdgesCount < vertexCount - 1) {
+    //     searchedEdgesCount++;
+    //     minEdge = NOT_CONNECTED;
+    //
+    //     for (int i = 0; i < vertexCount; ++i) {
+    //         if (visitedVertex[i] == 0 && minEdge > distancesOfThisVertex[i]) {
+    //             vertexMinEdge = i;
+    //             minEdge = distancesOfThisVertex[i];
+    //         }
+    //     }
+    //
+    //     visitedVertex[vertexMinEdge] = 1;
+    //
+    //     for (int i = 0; i < vertexCount; ++i) {
+    //         if (visitedVertex[i] == 0 && graph[vertexMinEdge][i] != NOT_CONNECTED &&
+    //             distancesOfThisVertex[vertexMinEdge] != NOT_CONNECTED) {
+    //             int tmp = distancesOfThisVertex[vertexMinEdge] + graph[vertexMinEdge][i];
+    //             if (tmp < distancesOfThisVertex[i]) {
+    //                 distancesOfThisVertex[i] = distancesOfThisVertex[vertexMinEdge] + graph[vertexMinEdge][i];
+    //             }
+    //
+    //         }
+    //     }
+    //
+    // }
     return distancesOfThisVertex;
 }
 /* The following is the exact command used to compile this code */
