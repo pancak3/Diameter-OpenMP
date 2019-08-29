@@ -1,3 +1,5 @@
+gcc headers/randomgraph.c -o randomgraph
+gcc graph-diameter -o graph-diameter
 gcc -fopenmp onePunch.c  -o onePunch
 ./randomgraph 1000 0.3 50 1|./onePunch 
 echo "========here blow is the right anwser======="
