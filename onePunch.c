@@ -114,7 +114,7 @@ int diameter(int givenDistance[MAX][MAX], int vertexCount) {
     uint64_t start = GetTimeStamp();
     int *distancesTable[vertexCount];
     int *p;
-#pragma omp parallel for num_threads(4)
+#pragma omp parallel for num_threads(8)
     for (int fromVertex = 0; fromVertex < vertexCount; ++fromVertex) {
 
         p = Dijkstra(fromVertex, vertexCount, givenDistance);
@@ -153,8 +153,7 @@ int *Dijkstra(int fromVertex, int vertexCount, int graph[MAX][MAX]) {
 //    int distancesOfThisVertex[vertexCount];
     int *distancesOfThisVertex = malloc(vertexCount * sizeof(int));
 
-    int minEdge, vertex = 0, searchedEdgesCount = 0;
-    omp_set_num_threads(4);
+    int minEdge, vertexMinEdge = 0, searchedEdgesCount = 0;
 
     for (int i = 0; i < vertexCount; ++i) {
         visitedVertex[i] = 0;
@@ -170,19 +169,19 @@ int *Dijkstra(int fromVertex, int vertexCount, int graph[MAX][MAX]) {
 
         for (int i = 0; i < vertexCount; ++i) {
             if (visitedVertex[i] == 0 && minEdge > distancesOfThisVertex[i]) {
-                vertex = i;
+                vertexMinEdge = i;
                 minEdge = distancesOfThisVertex[i];
             }
         }
 
-        visitedVertex[vertex] = 1;
+        visitedVertex[vertexMinEdge] = 1;
 
         for (int i = 0; i < vertexCount; ++i) {
-            if (visitedVertex[i] == 0 && graph[vertex][i] != NOT_CONNECTED &&
-                distancesOfThisVertex[vertex] != NOT_CONNECTED) {
-                int tmp = distancesOfThisVertex[vertex] + graph[vertex][i];
+            if (visitedVertex[i] == 0 && graph[vertexMinEdge][i] != NOT_CONNECTED &&
+                distancesOfThisVertex[vertexMinEdge] != NOT_CONNECTED) {
+                int tmp = distancesOfThisVertex[vertexMinEdge] + graph[vertexMinEdge][i];
                 if (tmp < distancesOfThisVertex[i]) {
-                    distancesOfThisVertex[i] = distancesOfThisVertex[vertex] + graph[vertex][i];
+                    distancesOfThisVertex[i] = distancesOfThisVertex[vertexMinEdge] + graph[vertexMinEdge][i];
                 }
 
             }
