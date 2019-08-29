@@ -123,6 +123,7 @@ int diameter(int givenDistance[MAX][MAX], int vertexCount) {
 
     printf("Dijkstra Time: %ld us\n", (uint64_t) (GetTimeStamp() - start));
 
+    int diameter = 0;
 /*
  * search maximum distance(diameter) in parallel should be here blow
  * in these comments, you can find how to get each vertex's distances to other vertices
