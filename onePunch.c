@@ -114,15 +114,15 @@ int diameter(int givenDistance[MAX][MAX], int vertexCount) {
     uint64_t start = GetTimeStamp();
     int *distancesTable[vertexCount];
     int *p;
-#pragma omp parallel for num_threads(8)
+#pragma omp parallel for num_threads(4)
     for (int fromVertex = 0; fromVertex < vertexCount; ++fromVertex) {
 
         p = Dijkstra(fromVertex, vertexCount, givenDistance);
         distancesTable[fromVertex] = p;
     }
 
+    printf("Dijkstra Time: %ld us\n", (uint64_t) (GetTimeStamp() - start));
 
-    int diameter = 0;
 /*
  * search maximum distance(diameter) in parallel should be here blow
  * in these comments, you can find how to get each vertex's distances to other vertices
@@ -143,7 +143,7 @@ int diameter(int givenDistance[MAX][MAX], int vertexCount) {
 
     }
 
-    printf("Dijkstra Time: %ld us\n", (uint64_t) (GetTimeStamp() - start));
+//    printf("Dijkstra Time: %ld us\n", (uint64_t) (GetTimeStamp() - start));
     return diameter;
 }
 
@@ -178,9 +178,12 @@ int *Dijkstra(int fromVertex, int vertexCount, int graph[MAX][MAX]) {
 
         for (int i = 0; i < vertexCount; ++i) {
             if (visitedVertex[i] == 0 && graph[vertex][i] != NOT_CONNECTED &&
-                distancesOfThisVertex[vertex] != NOT_CONNECTED &&
-                distancesOfThisVertex[vertex] + graph[vertex][i] < distancesOfThisVertex[i]) {
-                distancesOfThisVertex[i] = distancesOfThisVertex[vertex] + graph[vertex][i];
+                distancesOfThisVertex[vertex] != NOT_CONNECTED) {
+                int tmp = distancesOfThisVertex[vertex] + graph[vertex][i];
+                if (tmp < distancesOfThisVertex[i]) {
+                    distancesOfThisVertex[i] = distancesOfThisVertex[vertex] + graph[vertex][i];
+                }
+
             }
         }
 
