@@ -1,0 +1,10 @@
+
+5000 Vertices:
+
+	./check 
+	Diameter 2
+	Time: 1360515386 us
+	========here blow is the right anwser=======
+	Diameter 2
+	Time: 470704553 us
+
