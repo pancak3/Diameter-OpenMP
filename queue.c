@@ -6,6 +6,8 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <string.h>
+
 #include "queue.h"
 
 #define EXPAND_FACTOR 2  // factor to expand capacity of priority queue
@@ -22,27 +24,71 @@ struct pQueue {
     int type;       // type of the priority queue (min/max)
 };
 
-// /* MAIN FUNCTION FOR TESTING ONLY */
-//
-// int main(void) {
-//     PQueue *queue = pqueue_create(TYPE_MIN, 10);
-//     pqueue_push(queue, 10, 0);
-//     pqueue_push(queue, 5, 5);
-//     pqueue_push(queue, 7, 3);
-//     pqueue_push(queue, 4, 6);
-//     pqueue_push(queue, 1, 9);
-//     pqueue_push(queue, 8, 2);
-//     pqueue_push(queue, 9, 1);
-//     pqueue_push(queue, 3, 7);
-//     pqueue_push(queue, 2, 8);
-//     pqueue_push(queue, 6, 4);
-//
-//     for (int i = 0; i < 10; i++) {
-//         int priority;
-//         int value = pqueue_pop(queue, &priority);
-//         printf("Priority %d, value %d\n", priority, value);
-//     }
-// }
+/* MAIN FUNCTION FOR TESTING ONLY */
+
+int main(void) {
+    int init_size;
+    printf("Enter initial capacity of priority queue: ");
+    scanf("%d", &init_size);
+    printf("Creating queue...\n");
+    PQueue *queue = pqueue_create(TYPE_MIN, init_size);
+
+    printf("AVAILABLE COMMANDS:\n");
+    printf("s                   print queue size and capacity\n");
+    printf("a                   print all elements in queue (heap order)\n");
+    printf("+ <val> <priority>  push element to queue\n");
+    printf("-                   pop element from queue and print\n");
+
+    printf("Enter a command: ");
+    char c;
+    while ((c = getchar()) != EOF) {
+        if (c == 's') {
+            printf("Current size: %d\n", queue->n);
+            printf("Max capacity: %d\n", queue->max);
+
+        } else if (c == 'a') {
+            printf("Elements in HEAP array order:\n");
+            for (int i = 0; i < queue->n; i++) {
+                printf("Val: %d\tPriority:%d\n", queue->nodes[i].value,
+                       queue->nodes[i].priority);
+            }
+
+        } else if (c == '+') {
+            int val, priority;
+            scanf("%d %d", &val, &priority);
+            pqueue_push(queue, val, priority);
+
+        } else if (c == '-') {
+            int val, priority;
+            val = pqueue_pop(queue, &priority);
+            printf("Element popped:\n");
+            printf("Val: %d\tPriority:%d\n", val, priority);
+
+        } else if (c == '\n' || c == '\r') {
+            continue;
+        }
+
+        printf("Enter a command (^D to quit): ");
+    }
+
+    // PQueue *queue = pqueue_create(TYPE_MIN, 10);
+    // pqueue_push(queue, 10, 0);
+    // pqueue_push(queue, 5, 5);
+    // pqueue_push(queue, 7, 3);
+    // pqueue_push(queue, 4, 6);
+    // pqueue_push(queue, 1, 9);
+    // pqueue_push(queue, 8, 2);
+    // pqueue_push(queue, 9, 1);
+    // pqueue_push(queue, 3, 7);
+    // pqueue_push(queue, 2, 8);
+    // pqueue_push(queue, 6, 4);
+    //
+    // for (int i = 0; i < 10; i++) {
+    //     int priority;
+    //     int value = pqueue_pop(queue, &priority);
+    //     printf("Priority %d, value %d\n", priority, value);
+    // }
+}
 
 /* PRIVATE FUNCTIONS */
 
