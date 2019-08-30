@@ -117,7 +117,6 @@ int diameter(int givenDistance[MAX][MAX], int vertexCount) {
     int *p;
 #pragma omp parallel for num_threads(8)
     for (int fromVertex = 0; fromVertex < vertexCount; ++fromVertex) {
-
         p = Dijkstra(fromVertex, vertexCount, givenDistance);
         distancesTable[fromVertex] = p;
     }
@@ -155,16 +154,14 @@ int *Dijkstra(int fromVertex, int vertexCount, int graph[MAX][MAX]) {
 //    int distancesOfThisVertex[vertexCount];
     int *distancesOfThisVertex = malloc(vertexCount * sizeof(int));
 
-    // int minEdge, vertexMinEdge = 0, searchedEdgesCount = 0;
 
     pqueue_push(queue, fromVertex, 0);
-    distancesOfThisVertex[fromVertex] = 0;
+//    distancesOfThisVertex[fromVertex] = NOT_CONNECTED;
 
-    // for (int i = 0; i < vertexCount; ++i) {
-    //     // visitedVertex[i] = 0;
-    //     distancesOfThisVertex[i] = graph[fromVertex][i];
-    // }
-    // visitedVertex[fromVertex] = 1;
+    for (int j = 0; j < vertexCount; ++j) {
+        distancesOfThisVertex[j] = NOT_CONNECTED;
+    }
+
 
     int curr_vertex, curr_dist;  // current vertex and its distance from source
     while (pqueue_size(queue) > 0) {
@@ -172,18 +169,22 @@ int *Dijkstra(int fromVertex, int vertexCount, int graph[MAX][MAX]) {
         int curr_vertex = pqueue_pop(queue, &curr_dist);
 
         for (int i = 0; i < vertexCount; i++) {
-            int next_weight = graph[curr_vertex][i];
-            if (next_weight != NOT_CONNECTED) {
-                int next_dist = curr_dist + next_weight;
+            if (curr_vertex != i) {
+                int next_weight = graph[curr_vertex][i];
+                if (next_weight != NOT_CONNECTED) {
+                    int distSoFar = curr_dist + next_weight;
 
-                if (distancesOfThisVertex[i] == NOT_CONNECTED || distancesOfThisVertex[i] > next_dist) {
-                    // update to shorter dist via the current vertex
-                    distancesOfThisVertex[i] = next_dist;
+                    if (distancesOfThisVertex[i] > distSoFar) {
 
-                    // now add to the heap (as distance known/updated)
-                    pqueue_push(queue, i, next_dist);
+//                        printf("%d (w: %d)-> ", i, distSoFar);
+                        // update to shorter dist via the current vertex
+                        distancesOfThisVertex[i] = distSoFar;
+                        // now add to the heap (as distance known/updated)
+                        pqueue_push(queue, i, distSoFar);
+                    }
                 }
             }
+
         }
 
         // visitedVertex[next_vertex] = 1;
