@@ -163,9 +163,10 @@ int *Dijkstra(int fromVertex, int vertexCount, int graph[MAX][MAX]) {
     }
 
 
-    int curr_vertex, curr_dist;  // current vertex and its distance from source
+    // current vertex and its distance from source
     while (pqueue_size(queue) > 0) {
-        int edge_weight;  // distance to neighbour via current vertex
+//        int edge_weight;  // distance to neighbour via current vertex
+        int curr_dist;
         int curr_vertex = pqueue_pop(queue, &curr_dist);
 
         for (int i = 0; i < vertexCount; i++) {
@@ -176,7 +177,6 @@ int *Dijkstra(int fromVertex, int vertexCount, int graph[MAX][MAX]) {
 
                     if (distancesOfThisVertex[i] > distSoFar) {
 
-//                        printf("%d (w: %d)-> ", i, distSoFar);
                         // update to shorter dist via the current vertex
                         distancesOfThisVertex[i] = distSoFar;
                         // now add to the heap (as distance known/updated)

@@ -47,9 +47,13 @@ struct pQueue {
 /* PRIVATE FUNCTIONS */
 
 void sift_up(PQueue *queue, int i);
+
 void sift_down(PQueue *queue, int i);
+
 bool check_parent(PQueue *queue, int i);
+
 void node_swap(Node *n0, Node *n1);
+
 int priority_child(PQueue *queue, int i);
 
 /* MODULE FUNCTION DEFINITIONS */
@@ -72,7 +76,6 @@ PQueue *pqueue_create(int type, int init_size) {
 
 void pqueue_push(PQueue *queue, int value, int priority) {
     assert(queue);
-
     // expand queue if at max capacity
     if (queue->n == queue->max) {
         queue->max *= EXPAND_FACTOR;
@@ -82,6 +85,8 @@ void pqueue_push(PQueue *queue, int value, int priority) {
 
     queue->nodes[queue->n].priority = priority;
     queue->nodes[queue->n].value = value;
+//    printf("pushed value xxxx: %d\n", queue->nodes[queue->n].value);
+//    printf("pushed value: %d\n", value);
 
     // sift up to restore heap property
     sift_up(queue, (queue->n)++);
@@ -92,6 +97,7 @@ int pqueue_pop(PQueue *queue, int *priority) {
 
     // store root node locally
     Node root = queue->nodes[0];
+//    printf("[*] pop value: %d\n", queue->nodes[0].value);
 
     // move last element to root position and sift down to restore heap property
     if (--(queue->n) > 0) {
@@ -121,8 +127,8 @@ void sift_up(PQueue *queue, int i) {
     assert(queue && queue->n >= i);
     while (!check_parent(queue, i)) {
         // swap this node with its parent
-        node_swap(queue->nodes + i, queue->nodes + (i-1) / 2);
-        i = (i-1) / 2;
+        node_swap(queue->nodes + i, queue->nodes + (i - 1) / 2);
+        i = (i - 1) / 2;
     }
 }
 
@@ -130,8 +136,8 @@ void sift_up(PQueue *queue, int i) {
 void sift_down(PQueue *queue, int i) {
     assert(queue && queue->n >= i);
 
-    int l = 2*i + 1;
-    int r = 2*i + 2;
+    int l = 2 * i + 1;
+    int r = 2 * i + 2;
 
     // check if this is the last node (no children)
     if (l >= queue->n) return;
@@ -158,10 +164,10 @@ bool check_parent(PQueue *queue, int i) {
     if (i == 0) return true;
 
     int child_priority = queue->nodes[i].priority;
-    int parent_priority = queue->nodes[(i-1) / 2].priority;
+    int parent_priority = queue->nodes[(i - 1) / 2].priority;
 
     return (queue->type == TYPE_MIN && parent_priority < child_priority) ||
-        (queue->type == TYPE_MAX && parent_priority > child_priority);
+           (queue->type == TYPE_MAX && parent_priority > child_priority);
 }
 
 /** Swap two nodes. */
@@ -176,10 +182,10 @@ void node_swap(Node *n0, Node *n1) {
  * node i.
  */
 int priority_child(PQueue *queue, int i) {
-    assert(queue && 2*i + 2 < queue->n);
+    assert(queue && 2 * i + 2 < queue->n);
 
-    int l = 2*i + 1;
-    int r = 2*i + 2;
+    int l = 2 * i + 1;
+    int r = 2 * i + 2;
 
     if (queue->type == TYPE_MIN)
         return (queue->nodes[r].priority < queue->nodes[l].priority) ? r : l;

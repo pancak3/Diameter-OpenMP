@@ -1,8 +1,10 @@
 gcc headers/randomgraph.c -o randomgraph
 gcc graph-diameter.c -o graph-diameter
 gcc -fopenmp onePunch.c queue.c -o onePunch
-./randomgraph 5 0.3 50 1
-./randomgraph 5 0.3 50 1|./onePunch
+
+problemSize=11
+#./randomgraph $problemSize 0.3 17 1.2
+./randomgraph $problemSize 0.3 17 1.2|./onePunch
 echo "========here blow is the right anwser======="
-##./randomgraph 100 0.3 5 1
-./randomgraph 5 0.3 50 1 |./graph-diameter
+
+./randomgraph $problemSize 0.3 17 1.2 |./graph-diameter
