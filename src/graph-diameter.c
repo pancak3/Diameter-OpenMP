@@ -119,4 +119,4 @@ int diameter(int distance[MAX][MAX], int nodesCount) {
 }
 
 /* The following is the exact command used to compile this code */
-/* g++ -O2 graph-diameter.cpp -o graph-diameter */
+/* gcc -O2 graph-diameter.c -o bin/graph-diameter */
