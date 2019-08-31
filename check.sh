@@ -3,6 +3,8 @@ WEIGHT=133
 PROB_EDGE=0.33
 SEED=7
 
+gcc headers/randomgraph.c -o randomgraph
+gcc graph-diameter.c -o graph-diameter
 
 echo ""
 echo "[******** onePunch ********]"
