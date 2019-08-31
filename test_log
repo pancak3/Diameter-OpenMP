@@ -105,3 +105,39 @@ Time: 29 us
 [******** origin ********]
 Diameter 225
 Time: 14 us
++--------------------------------------+
+commit 99597e1f8366981897fe52babd0e83f0df542fa7
+[*] problem size: 111
+     Sunday, Sep 01, 2019 01:35 AM
+
+[******** onePunch ********]
+Diameter 54
+Time: 3828 us
+
+[******** origin ********]
+Diameter 54
+Time: 5851 us
++--------------------------------------+
+commit 99597e1f8366981897fe52babd0e83f0df542fa7
+[*] problem size: 1111
+     Sunday, Sep 01, 2019 01:35 AM
+
+[******** onePunch ********]
+Diameter 11
+Time: 2350949 us
+
+[******** origin ********]
+Diameter 11
+Time: 5228238 us
++--------------------------------------+
+commit 71b5b7e7c21b475dc38c5cfdc0a53ac0f1af17bc
+[*] problem size: 111, max threads: 8
+     Sunday, Sep 01, 2019 01:44 AM
+
+[******** onePunch ********]
+Diameter 54
+Time: 3311 us
+
+[******** origin ********]
+Diameter 54
+Time: 5743 us
