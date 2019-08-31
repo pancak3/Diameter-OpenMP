@@ -1,5 +1,0 @@
-gcc -fopenmp onePunch.c  -o onePunch
-./randomgraph 200 0.3 5 1|./onePunch 
-echo "========here blow is the right anwser======="
-##./randomgraph 100 0.3 5 1
-./randomgraph 200 0.3 5 1 |./graph-diameter
