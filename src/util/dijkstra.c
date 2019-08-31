@@ -44,5 +44,12 @@ void sssp_dijkstra(int adj_matrix[][MAX], int nnodes, int src, int *dists) {
             }
         }
     }
+    
+    #ifdef DEBUG
+    for (int i = 0; i < nnodes; i++)
+        printf("%3d ", dists[i]);
+    printf("\n");
+    #endif // DEBUG
+
     free_heap(queue);
 }
