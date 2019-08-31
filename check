@@ -6,6 +6,6 @@ maxWeight=23
 echo "[*] problem size: $problemSize"
 #./randomgraph $problemSize 0.3 $maxWeight 1
 
-./randomgraph $problemSize 0.3 $maxWeight 1|./onePunch
+#./randomgraph $problemSize 0.3 $maxWeight 1|./onePunch
 echo "========here blow is the right anwser======="
 ./randomgraph $problemSize 0.3 $maxWeight 1 |./graph-diameter
