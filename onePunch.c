@@ -103,9 +103,6 @@ int main() {
 /*  Your changes here */
 
 #include "omp.h"
-#include "stdio.h"
-#include "omp.h"
-#include "stdlib.h"
 
 int localVertexCount;
 int localDistance[MAX][MAX];

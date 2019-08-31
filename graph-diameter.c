@@ -87,10 +87,11 @@ int main() {
 
 /******************************************************************************/
 /*  Your changes here */
+#include "omp.h"
 
 int diameter(int distance[MAX][MAX], int nodesCount) {
     int i, j, k;
-
+#pragma omp parallel for num_threads(8)
     for (int k = 0; k < nodesCount; ++k) {
         for (int i = 0; i < nodesCount; ++i) {
             if (distance[i][k] != NOT_CONNECTED) {
@@ -107,6 +108,7 @@ int diameter(int distance[MAX][MAX], int nodesCount) {
     int diameter = -1;
 
     /* look for the most distant pair */
+#pragma omp parallel for num_threads(8)
     for (int i = 0; i < nodesCount; ++i) {
         for (int j = 0; j < nodesCount; ++j) {
             if (distance[i][j] != NOT_CONNECTED && diameter < distance[i][j]) {
