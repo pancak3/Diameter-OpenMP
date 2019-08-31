@@ -141,3 +141,27 @@ Time: 3311 us
 [******** origin ********]
 Diameter 54
 Time: 5743 us
++--------------------------------------+
+commit a71a36de4f47ac9abb33ec11f464554a773e9dc0
+[*] problem size: 1111, max threads: 64
+     Saturday, Aug 31, 2019 03:46 PM
+
+[******** onePunch ********]
+Diameter 11
+Time: 447853 us
+
+[******** origin ********]
+Diameter 11
+Time: 7634098 us
++--------------------------------------+
+commit a71a36de4f47ac9abb33ec11f464554a773e9dc0
+[*] problem size: 2222, max threads: 64
+     Saturday, Aug 31, 2019 03:47 PM
+
+[******** onePunch ********]
+Diameter 7
+Time: 3077766 us
+
+[******** origin ********]
+Diameter 7
+Time: 60419109 us
