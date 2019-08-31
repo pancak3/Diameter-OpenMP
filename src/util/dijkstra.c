@@ -9,6 +9,7 @@
 
 #include <assert.h>
 #include <limits.h>
+#include <stdio.h>
 
 #include "dijkstra.h"
 #include "heap.h"
@@ -36,10 +37,12 @@ void sssp_dijkstra(int adj_matrix[][MAX], int nnodes, int src, int *dists) {
 
         // check distances for all neighbours
         for (int i = 0, new_dist; i < nnodes; i++) {
-            if ((new_dist = curr_dist + adj_matrix[curr_node][i]) < dists[i]) {
+            if (adj_matrix[curr_node][i] != NOT_CONNECTED &&
+                    (new_dist = curr_dist + adj_matrix[curr_node][i]) < dists[i]) {
                 heap_push(queue, i, new_dist);
                 dists[i] = new_dist;
             }
         }
     }
+    free_heap(queue);
 }
