@@ -92,6 +92,7 @@ int main() {
 int diameter(int distance[MAX][MAX], int nodesCount) {
     int i, j, k;
     int maxThreadsNum=omp_get_max_threads();
+    uint64_t start = GetTimeStamp();
 #pragma omp parallel for num_threads(maxThreadsNum)
     for (int k = 0; k < nodesCount; ++k) {
         for (int i = 0; i < nodesCount; ++i) {
@@ -105,7 +106,8 @@ int diameter(int distance[MAX][MAX], int nodesCount) {
             }
         }
     }
-
+    printf("Time for finding distances: \n\t%ld us\n", (uint64_t) (GetTimeStamp() - start));
+    start = GetTimeStamp();
     int diameter = -1;
 
     /* look for the most distant pair */
@@ -117,6 +119,7 @@ int diameter(int distance[MAX][MAX], int nodesCount) {
             }
         }
     }
+    printf("Time for bubble sort: \n\t%ld us\n", (uint64_t) (GetTimeStamp() - start));
 
     return (diameter);
 }
