@@ -165,3 +165,61 @@ Time: 3077766 us
 [******** origin ********]
 Diameter 7
 Time: 60419109 us
++--------------------------------------+
+commit 95dd4c2dac6c6ffe05e2d364faf3c669ba1fb2e7
+[*] problem size: 111, max threads: 8
+     Sunday, Sep 01, 2019 01:52 AM
+
+[******** onePunch ********]
+
+[******** origin ********]
+Diameter 54
+Time: 5958 us
++--------------------------------------+
+commit 95dd4c2dac6c6ffe05e2d364faf3c669ba1fb2e7
+[*] problem size: 111, max threads: 8
+     Sunday, Sep 01, 2019 01:52 AM
+
+[******** onePunch ********]
+Diameter 54
+Time: 6103 us
+
+[******** origin ********]
+Diameter 54
+Time: 5789 us
++--------------------------------------+
+commit 95dd4c2dac6c6ffe05e2d364faf3c669ba1fb2e7
+[*] problem size: 222, max threads: 8
+     Sunday, Sep 01, 2019 01:52 AM
+
+[******** onePunch ********]
+Diameter 43
+Time: 21052 us
+
+[******** origin ********]
+Diameter 43
+Time: 44715 us
++--------------------------------------+
+commit 95dd4c2dac6c6ffe05e2d364faf3c669ba1fb2e7
+[*] problem size: 1111, max threads: 8
+     Sunday, Sep 01, 2019 01:52 AM
+
+[******** onePunch ********]
+Diameter 11
+Time: 2442651 us
+
+[******** origin ********]
+Diameter 11
+Time: 5255163 us
++--------------------------------------+
+commit 95dd4c2dac6c6ffe05e2d364faf3c669ba1fb2e7
+[*] problem size: 1111, max threads: 8
+     Sunday, Sep 01, 2019 01:53 AM
+
+[******** onePunch ********]
+Diameter 11
+Time: 2466569 us
+
+[******** origin ********]
+Diameter 11
+Time: 5227456 us

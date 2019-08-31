@@ -28,20 +28,6 @@ uint64_t GetTimeStamp() {
 }
 
 int main() {
-    /* test data area, should be delete before real test*/
-//    int testGraph[5][5] =
-//            //0  1  2  3  4
-//            {{NOT_CONNECTED, 5,             2,             NOT_CONNECTED, 15}, //0
-//             {NOT_CONNECTED, NOT_CONNECTED, 6, 1,                         NOT_CONNECTED},  //1
-//             {NOT_CONNECTED, NOT_CONNECTED, NOT_CONNECTED, NOT_CONNECTED, 1},  //2
-//             {9,             4,             NOT_CONNECTED, NOT_CONNECTED, 2},  //3
-//             {NOT_CONNECTED, 6,             NOT_CONNECTED, NOT_CONNECTED, NOT_CONNECTED}   //4
-//            };
-//
-//
-//    printf("The ans is: %d\n", diameter(testGraph, 5));
-//    /* up */
-//
     /* number of nodes */
     int nodeCount;
 
@@ -104,19 +90,21 @@ int main() {
 
 #include "omp.h"
 
+int localVertexCount;
+#pragma omp threadprivate(localVertexCount)
+
 int *Dijkstra(int fromVertex, int vertexCount, int graph[MAX][MAX]);
 
 int diameter(int givenDistance[MAX][MAX], int vertexCount) {
 
-    uint64_t start = GetTimeStamp();
     int *distancesTable[vertexCount];
-    int *p;
+
 #pragma omp parallel for
 
     for (int fromVertex = 0; fromVertex < vertexCount; ++fromVertex) {
+        localVertexCount = vertexCount;
 
-        p = Dijkstra(fromVertex, vertexCount, givenDistance);
-        distancesTable[fromVertex] = p;
+        distancesTable[fromVertex] = Dijkstra(fromVertex, localVertexCount, givenDistance);
     }
 
 
@@ -127,9 +115,8 @@ int diameter(int givenDistance[MAX][MAX], int vertexCount) {
         for (int j = 0; j < vertexCount; ++j) {
             if (*(distancesTable[i] + j) > maxDistance && *(distancesTable[i] + j) != NOT_CONNECTED)
                 maxDistance = *(distancesTable[i] + j);
-//            printf("%11d ", *(distancesTable[i] + j));
         }
-//        printf("\nmaximum distance for vertex(%d): %d.\n", i, maxDistance);
+
         if (maxDistance > diameter) {
             diameter = maxDistance;
         }
