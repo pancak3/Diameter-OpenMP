@@ -1,4 +1,4 @@
-PROBLEM_SIZE=1000
+PROBLEM_SIZE=11
 echo "PROBLEM_SIZE: $PROBLEM_SIZE"
 
 # compile random generator
