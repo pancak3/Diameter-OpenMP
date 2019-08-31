@@ -24,3 +24,84 @@ Time: 12091372 us
 [******** origin ********]
 Diameter 11
 Time: 5200501 us
+[*] problem size: 10
+     Sunday, Sep 01, 2019 01:04 AM
+
+[******** onePunch ********]
+Diameter 378
+Time: 24 us
+
+[******** origin ********]
+Diameter 378
+Time: 10 us
++--------------------------------------+
+[*] problem size: 11
+commit 9188bde51f2c8e7b45da1005fda27f20006a9668
+     Sunday, Sep 01, 2019 01:25 AM
+
+[******** onePunch ********]
+Diameter 225
+Time: 31 us
+
+[******** origin ********]
+Diameter 225
+Time: 12 us
++--------------------------------------+
+     Sunday, Sep 01, 2019 01:28 AM
+commit 9188bde51f2c8e7b45da1005fda27f20006a9668
+
+[******** onePunch ********]
+Diameter 225
+Time: 29 us
+
+[******** origin ********]
+Diameter 225
+Time: 12 us
++--------------------------------------+
+[*] problem size: 11
+     Sunday, Sep 01, 2019 01:28 AM
+commit 9188bde51f2c8e7b45da1005fda27f20006a9668
+
+[******** onePunch ********]
+Diameter 225
+Time: 30 us
+
+[******** origin ********]
+Diameter 225
+Time: 13 us
++--------------------------------------+
+[*] problem size: 11
+     Sunday, Sep 01, 2019 01:29 AM
+commit 9188bde51f2c8e7b45da1005fda27f20006a9668
+
+[******** onePunch ********]
+Diameter 225
+Time: 32 us
+
+[******** origin ********]
+Diameter 225
+Time: 14 us
++--------------------------------------+
+[*] problem size: 11
+     Sunday, Sep 01, 2019 01:29 AM
+commit 9188bde51f2c8e7b45da1005fda27f20006a9668
+
+[******** onePunch ********]
+Diameter 225
+Time: 30 us
+
+[******** origin ********]
+Diameter 225
+Time: 13 us
++--------------------------------------+
+commit 9188bde51f2c8e7b45da1005fda27f20006a9668
+[*] problem size: 11
+     Sunday, Sep 01, 2019 01:29 AM
+
+[******** onePunch ********]
+Diameter 225
+Time: 29 us
+
+[******** origin ********]
+Diameter 225
+Time: 14 us
