@@ -111,7 +111,7 @@ int diameter(int givenDistance[MAX][MAX], int vertexCount) {
     uint64_t start = GetTimeStamp();
     int *distancesTable[vertexCount];
     int *p;
-//#pragma omp parallel for
+#pragma omp parallel for
 
     for (int fromVertex = 0; fromVertex < vertexCount; ++fromVertex) {
 
