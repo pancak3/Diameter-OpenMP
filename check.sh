@@ -5,7 +5,7 @@ SEED=7
 
 gcc headers/randomgraph.c -o randomgraph
 gcc graph-diameter.c -o graph-diameter
-
+echo "+--------------------------------------+"
 echo "[*] problem size: $PROBLEM_SIZE" >> test_log
 date +"     %A, %b %d, %Y %I:%M %p" >> test_log
 echo "" >> test_log
