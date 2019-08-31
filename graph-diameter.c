@@ -106,7 +106,7 @@ int diameter(int distance[MAX][MAX], int nodesCount) {
             }
         }
     }
-    printf("Time for finding distances: \n\t%ld us\n", (uint64_t) (GetTimeStamp() - start));
+    printf("[*] Time for finding distances: \n\t%ld us\n", (uint64_t) (GetTimeStamp() - start));
     start = GetTimeStamp();
     int diameter = -1;
 
@@ -119,7 +119,7 @@ int diameter(int distance[MAX][MAX], int nodesCount) {
             }
         }
     }
-    printf("Time for bubble sort: \n\t%ld us\n", (uint64_t) (GetTimeStamp() - start));
+    printf("[*] Time for bubble sort: \n\t%ld us\n", (uint64_t) (GetTimeStamp() - start));
 
     return (diameter);
 }

@@ -118,26 +118,25 @@ int diameter(int givenDistance[MAX][MAX], int vertexCount) {
     int maxThreadsNum = omp_get_max_threads();
 
 
-#pragma omp parallel for
-    for (int l = 0; l < maxThreadsNum; ++l) {
-        localVertexCount = vertexCount;
-
-//        printf("p: %d\n", omp_get_thread_num());
-        for (int k = 0; k < localVertexCount; ++k) {
-            for (int i = 0; i < localVertexCount; ++i) {
-                localDistance[k][i] = givenDistance[k][i];
-            }
-        }
-    }
-    printf("[*] time spent on copy global matrix to local: %ld us\n", GetTimeStamp() - start);
-    start = GetTimeStamp();
+//#pragma omp parallel for
+//    for (int l = 0; l < maxThreadsNum; ++l) {
+//        localVertexCount = vertexCount;
+//
+//        for (int k = 0; k < localVertexCount; ++k) {
+//            for (int i = 0; i < localVertexCount; ++i) {
+//                localDistance[k][i] = givenDistance[k][i];
+//            }
+//        }
+//    }
+//    printf("[*] time spent on copy global matrix to local: %ld us\n", GetTimeStamp() - start);
+//    start = GetTimeStamp();
 
 
 #pragma omp parallel for
     for (int i = 0; i < vertexCount; ++i) {
         localVertexCount = vertexCount;
 //        printf("p: %d local V C %d\n", omp_get_thread_num(), localVertexCount);
-        distancesTable[i] = Dijkstra(i, localVertexCount, localDistance);
+        distancesTable[i] = Dijkstra(i, vertexCount, givenDistance);
 
     }
     printf("[*] time spent on Dijkstra: %ld us\n", GetTimeStamp() - start);
