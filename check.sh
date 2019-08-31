@@ -1,11 +1,15 @@
 gcc headers/randomgraph.c -o randomgraph
 
-gcc -fopenmp onePunch.c  -o onePunch
 
 problemSize=$1
 maxWeight=233
 echo "[*] problem size: $problemSize"
 #./randomgraph $problemSize 0.3 $maxWeight 1
+#echo ""
+#echo "======== onePunch ======="
+#gcc -fopenmp onePunch.c  -o onePunch
+#./randomgraph $problemSize 0.3 $maxWeight 1|./onePunch
+
 echo ""
 echo "======== ours && parallel ======="
 gcc -fopenmp graph-diameter.c -o graph-diameter

@@ -90,7 +90,7 @@ int main() {
 int diameter(int distance[MAX][MAX], int nodesCount) {
     int i, j, k;
 
-    uint64_t start = GetTimeStamp();
+//    uint64_t start = GetTimeStamp();
 
     for (int k = 0; k < nodesCount; ++k) {
         for (int i = 0; i < nodesCount; ++i) {
@@ -104,9 +104,8 @@ int diameter(int distance[MAX][MAX], int nodesCount) {
             }
         }
     }
-
-    printf("[*] Time for finding distances: \n\t%ld us\n", (uint64_t) (GetTimeStamp() - start));
-    start = GetTimeStamp();
+//    printf("[*] Time for finding distances: \n\t%ld us\n", (uint64_t) (GetTimeStamp() - start));
+//    start = GetTimeStamp();
     int diameter = -1;
 
     /* look for the most distant pair */
@@ -117,7 +116,7 @@ int diameter(int distance[MAX][MAX], int nodesCount) {
             }
         }
     }
-    printf("[*] Time for diameter: \n\t%ld us\n", (uint64_t) (GetTimeStamp() - start));
+//    printf("[*] Time for diameter: \n\t%ld us\n", (uint64_t) (GetTimeStamp() - start));
 
     return (diameter);
 }

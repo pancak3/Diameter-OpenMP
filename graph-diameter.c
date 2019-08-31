@@ -91,14 +91,12 @@ int main() {
 
 int localVertexCount;
 int localDistance[MAX][MAX];
+#pragma omp threadprivate(localVertexCount)
 
 int diameter(int distance[MAX][MAX], int nodesCount) {
     int i, j, k;
-    int maxThreadsNum = omp_get_max_threads();
-    uint64_t start = GetTimeStamp();
 
-    localVertexCount = nodesCount;
-
+//#pragma omp critical
 //#pragma omp parallel for num_threads(maxThreadsNum)
 //    for (int l = 0; l < maxThreadsNum; ++l) {
 //        localVertexCount = localVertexCount;
@@ -109,16 +107,29 @@ int diameter(int distance[MAX][MAX], int nodesCount) {
 //            }
 //        }
 //    }
+//#pragma omp barrier
+//#pragma omp critical
+
 //    printf("[*] time spent on copy global matrix to local: %ld us\n", GetTimeStamp() - start);
-    start = GetTimeStamp();
-#pragma omp parallel for num_threads(maxThreadsNum)
+//    start = GetTimeStamp();
+#pragma omp parallel for  num_threads(8) copyin(localVertexCount)
     for (int k = 0; k < nodesCount; ++k) {
-        for (int i = 0; i < localVertexCount; ++i) {
+//        printf("%d\n", nodesCount);
+
+//        for (k = 0; k < localVertexCount; ++k) {
+//            for (i = 0; i < localVertexCount; ++i) {
+//                localDistance[k][i] = distance[k][i];
+//            }
+//        }
+
+
+        for (int i = 0; i < nodesCount; ++i) {
             if (distance[i][k] != NOT_CONNECTED) {
-                for (int j = 0; j < localVertexCount; ++j) {
+                for (int j = 0; j < nodesCount; ++j) {
                     if (distance[k][j] != NOT_CONNECTED &&
                         (distance[i][j] == NOT_CONNECTED ||
                          distance[i][k] + distance[k][j] < distance[i][j])) {
+//                        printf("%d \n", localDistance[k][j]);
                         distance[i][j] = distance[i][k] + distance[k][j];
                     }
                 }
@@ -126,20 +137,19 @@ int diameter(int distance[MAX][MAX], int nodesCount) {
         }
     }
 #pragma omp barrier
-    printf("[*] Time for finding distances: \n\t%ld us\n", (uint64_t) (GetTimeStamp() - start));
-    start = GetTimeStamp();
+//    printf("[*] Time fo===================================[
     int diameter = -1;
 
     /* look for the most distant pair */
-#pragma omp parallel for num_threads(maxThreadsNum)
+#pragma omp parallel for num_threads(8)
     for (int i = 0; i < nodesCount; ++i) {
-        for (int j = 0; j < localVertexCount; ++j) {
+        for (int j = 0; j < nodesCount; ++j) {
             if (distance[i][j] != NOT_CONNECTED && diameter < distance[i][j]) {
                 diameter = distance[i][j];
             }
         }
     }
-    printf("[*] Time for diameter: \n\t%ld us\n", (uint64_t) (GetTimeStamp() - start));
+//    printf("[*] Time for diameter: \n\t%ld us\n", (uint64_t) (GetTimeStamp() - start));
 
     return (diameter);
 }
