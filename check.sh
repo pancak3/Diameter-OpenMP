@@ -6,6 +6,7 @@ SEED=7
 gcc headers/randomgraph.c -o randomgraph
 gcc graph-diameter.c -o graph-diameter
 
+echo "[*] problem size: PROBLEM_SIZE"
 echo ""
 echo "[******** onePunch ********]"
 gcc -fopenmp onePunch.c  -o onePunch
