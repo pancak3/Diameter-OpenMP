@@ -91,20 +91,25 @@ int main() {
 #include "omp.h"
 
 int localVertexCount;
-#pragma omp threadprivate(localVertexCount)
+int localDistance[MAX][MAX];
+#pragma omp threadprivate(localVertexCount,localDistance)
 
 int *Dijkstra(int fromVertex, int vertexCount, int graph[MAX][MAX]);
 
 int diameter(int givenDistance[MAX][MAX], int vertexCount) {
 
     int *distancesTable[vertexCount];
+    localVertexCount = vertexCount;
 
-#pragma omp parallel for
+    for (int k = 0; k < vertexCount; ++k) {
+        for (int i = 0; i < vertexCount; ++i) {
+            localDistance[k][i] = givenDistance[k][i];
+        }
+    }
 
+#pragma omp parallel for copyin(localVertexCount,localDistance)
     for (int fromVertex = 0; fromVertex < vertexCount; ++fromVertex) {
-        localVertexCount = vertexCount;
-
-        distancesTable[fromVertex] = Dijkstra(fromVertex, localVertexCount, givenDistance);
+        distancesTable[fromVertex] = Dijkstra(fromVertex, localVertexCount, localDistance);
     }
 
 
