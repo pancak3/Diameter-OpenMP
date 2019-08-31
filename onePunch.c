@@ -107,21 +107,55 @@ int main() {
 #include "omp.h"
 #include "stdlib.h"
 
+int localVertexCount;
+int localDistance[MAX][MAX];
+
+#pragma omp threadprivate(localVertexCount, localDistance)
+
 int *Dijkstra(int fromVertex, int vertexCount, int graph[MAX][MAX]);
 
 int diameter(int givenDistance[MAX][MAX], int vertexCount) {
 
     uint64_t start = GetTimeStamp();
     int *distancesTable[vertexCount];
-    int *p;
-#pragma omp parallel for num_threads(4)
-    for (int fromVertex = 0; fromVertex < vertexCount; ++fromVertex) {
+    int maxThreadsNum = omp_get_max_threads();
 
-        p = Dijkstra(fromVertex, vertexCount, givenDistance);
-        distancesTable[fromVertex] = p;
+
+#pragma omp parallel for
+    for (int l = 0; l < maxThreadsNum; ++l) {
+        localVertexCount = vertexCount;
+
+//        printf("p: %d\n", omp_get_thread_num());
+        for (int k = 0; k < localVertexCount; ++k) {
+            for (int i = 0; i < localVertexCount; ++i) {
+                localDistance[k][i] = givenDistance[k][i];
+            }
+        }
     }
+    printf("[*] time spent on copy global matrix to local: %ld us\n", GetTimeStamp() - start);
+    start = GetTimeStamp();
 
-    printf("Dijkstra Time: %ld us\n", (uint64_t) (GetTimeStamp() - start));
+
+#pragma omp parallel for
+    for (int i = 0; i < vertexCount; ++i) {
+        localVertexCount = vertexCount;
+//        printf("p: %d local V C %d\n", omp_get_thread_num(), localVertexCount);
+        distancesTable[i] = Dijkstra(i, localVertexCount, localDistance);
+
+    }
+    printf("[*] time spent on Dijkstra: %ld us\n", GetTimeStamp() - start);
+    start = GetTimeStamp();
+
+#pragma omp barrier
+//    printf("\n[*] distancesTable:\n");
+//    for (int m = 0; m < vertexCount; ++m) {
+//        printf("%d: ", m);
+//
+//        for (int i = 0; i < vertexCount; ++i) {
+//            printf("%d ", distancesTable[m][i]);
+//        }
+//        printf("\n");
+//    }
 
     int diameter = 0;
 /*
@@ -143,6 +177,7 @@ int diameter(int givenDistance[MAX][MAX], int vertexCount) {
         }
 
     }
+    printf("[*] time spent on bubble search: %ld us\n", GetTimeStamp() - start);
 
 //    printf("Dijkstra Time: %ld us\n", (uint64_t) (GetTimeStamp() - start));
     return diameter;
@@ -154,7 +189,6 @@ int *Dijkstra(int fromVertex, int vertexCount, int graph[MAX][MAX]) {
     int *distancesOfThisVertex = malloc(vertexCount * sizeof(int));
 
     int minEdge, vertex = 0, searchedEdgesCount = 0;
-    omp_set_num_threads(4);
 
     for (int i = 0; i < vertexCount; ++i) {
         visitedVertex[i] = 0;

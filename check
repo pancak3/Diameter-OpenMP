@@ -1,5 +1,8 @@
 gcc -fopenmp onePunch.c  -o onePunch
-./randomgraph 1000 0.3 50 1|./onePunch 
+problemSize=1001
+maxWeight=23
+#./randomgraph $problemSize 0.3 $maxWeight 1
+
+./randomgraph $problemSize 0.3 $maxWeight 1|./onePunch
 echo "========here blow is the right anwser======="
-##./randomgraph 100 0.3 5 1
-./randomgraph 1000 0.3 50 1 |./graph-diameter
+./randomgraph $problemSize 0.3 $maxWeight 1 |./graph-diameter
