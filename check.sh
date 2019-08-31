@@ -6,14 +6,15 @@ SEED=7
 gcc headers/randomgraph.c -o randomgraph
 gcc graph-diameter.c -o graph-diameter
 
-echo "[*] problem size: PROBLEM_SIZE"
+echo "[*] problem size: $PROBLEM_SIZE"
+date +"     %A, %b %d, %Y %I:%M %p"
 echo ""
 echo "[******** onePunch ********]"
-gcc -fopenmp onePunch.c  -o onePunch
-./randomgraph $PROBLEM_SIZE $PROB_EDGE $WEIGHT $SEED|./onePunch
+gcc -fopenmp onePunch.c -o onePunch
+./randomgraph $PROBLEM_SIZE $PROB_EDGE $WEIGHT $SEED | ./onePunch
 
 echo ""
 echo "[******** origin ********]"
 ##./randomgraph 100 0.3 5 1
-gcc -fopenmp graph-diameter.c  -o graph-diameter
-./randomgraph $PROBLEM_SIZE $PROB_EDGE $WEIGHT $SEED |./graph-diameter
+gcc -fopenmp graph-diameter.c -o graph-diameter
+./randomgraph $PROBLEM_SIZE $PROB_EDGE $WEIGHT $SEED | ./graph-diameter
