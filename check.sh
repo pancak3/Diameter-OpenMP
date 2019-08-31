@@ -20,3 +20,9 @@ echo ""
 echo "========       origin       ======="
 gcc graph-diameter-origin.c -o graph-diameter-origin
 ./randomgraph $problemSize 0.3 $maxWeight 1 |./graph-diameter-origin
+
+echo ""
+echo "========       v2 dijkstra       ======="
+gcc -fopenmp graph-diameter-dijkstra-parallel.c  util/heap.c util/dijkstra.c -o graph-diameter-dijkstra-parallel
+./randomgraph $problemSize 0.3 $maxWeight 1 |./graph-diameter-dijkstra-parallel
+
