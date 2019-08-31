@@ -7,3 +7,6 @@ graph-diameter
 onePunch
 runOnePunch
 test
+graph-diameter-origin
+graph-diameter-origin-parallel
+graph-diameter-dijkstra-parallel
