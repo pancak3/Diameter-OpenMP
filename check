@@ -1,3 +1,5 @@
+gcc headers/randomgraph.c -o randomgraph
+gcc graph-diameter.c -o graph-diameter
 gcc -fopenmp onePunch.c  -o onePunch
 problemSize=1001
 maxWeight=23
