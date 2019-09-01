@@ -5,17 +5,17 @@ SEED=7
 one_time_check() {
   PROBLEM_SIZE=$1
 
-  gcc -fopenmp getMaxThreads.c -o getMaxThreads
+  gcc -std=c99 -fopenmp getMaxThreads.c -o getMaxThreads
   MAX_THREADS=$(./getMaxThreads)
 
-  gcc headers/randomgraph.c -o randomgraph
-  gcc graph-diameter.c -o graph-diameter
+  gcc -std=c99 headers/randomgraph.c -o randomgraph
+  gcc -std=c99 graph-diameter.c -o graph-diameter
 
   echo -e "$MAX_THREADS,\c" >>log.csv
   echo -e "$PROBLEM_SIZE,\c" >>log.csv
 
   ## get diameter and time cost of onePunch
-  gcc -fopenmp onePunch.c -o onePunch
+  gcc -std=c99 -fopenmp onePunch.c -o onePunch
   OUTPUT=$(./randomgraph $PROBLEM_SIZE $PROB_EDGE $WEIGHT $SEED |
     ./onePunch)
   echo $OUTPUT
@@ -32,7 +32,7 @@ one_time_check() {
   echo -e "$TIME_COST,\c" >>log.csv
 
   ## get diameter and time cost of graph-diameter-parallel
-  gcc -fopenmp graph-diameter-parallel.c -o graph-diameter-parallel
+  gcc -std=c99 -fopenmp graph-diameter-parallel.c -o graph-diameter-parallel
   OUTPUT=$(./randomgraph $PROBLEM_SIZE $PROB_EDGE $WEIGHT $SEED |
     ./graph-diameter-parallel)
   echo $OUTPUT
@@ -49,7 +49,7 @@ one_time_check() {
   echo -e "$TIME_COST,\c" >>log.csv
 
   ## get diameter and time cost of graph-diameter
-  gcc -fopenmp graph-diameter.c -o graph-diameter
+  gcc -std=c99 -fopenmp graph-diameter.c -o graph-diameter
   OUTPUT=$(./randomgraph $PROBLEM_SIZE $PROB_EDGE $WEIGHT $SEED |
     ./graph-diameter)
   echo $OUTPUT
