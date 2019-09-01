@@ -32,22 +32,22 @@ one_time_check() {
     grep -Po "[0-9]+")
   echo -e "$TIME_COST,\c" >>log.csv
 
-  ## get diameter and time cost of graph-diameter-parallel
-  gcc -std=c99 -fopenmp graph-diameter-parallel.c -o graph-diameter-parallel
-  OUTPUT=$(./randomgraph $PROBLEM_SIZE $PROB_EDGE $WEIGHT $SEED |
-    ./graph-diameter-parallel)
-  echo $OUTPUT
-
-  ## write diameter
-  DIAMETER=$(echo $OUTPUT |
-    grep -Po "Diameter [0-9]+" -m 1 |
-    grep -Po "[0-9]+")
-  echo -e "$DIAMETER,\c" >>log.csv
-  ## write time cost
-  TIME_COST=$(echo $OUTPUT |
-    grep -Po "Time: [0-9]+" -m 1 |
-    grep -Po "[0-9]+")
-  echo -e "$TIME_COST,\c" >>log.csv
+#  ## get diameter and time cost of graph-diameter-parallel
+#  gcc -std=c99 -fopenmp graph-diameter-parallel.c -o graph-diameter-parallel
+#  OUTPUT=$(./randomgraph $PROBLEM_SIZE $PROB_EDGE $WEIGHT $SEED |
+#    ./graph-diameter-parallel)
+#  echo $OUTPUT
+#
+#  ## write diameter
+#  DIAMETER=$(echo $OUTPUT |
+#    grep -Po "Diameter [0-9]+" -m 1 |
+#    grep -Po "[0-9]+")
+#  echo -e "$DIAMETER,\c" >>log.csv
+#  ## write time cost
+#  TIME_COST=$(echo $OUTPUT |
+#    grep -Po "Time: [0-9]+" -m 1 |
+#    grep -Po "[0-9]+")
+#  echo -e "$TIME_COST,\c" >>log.csv
 
   ## get diameter and time cost of graph-diameter
   gcc -std=c99 -fopenmp graph-diameter.c -o graph-diameter
