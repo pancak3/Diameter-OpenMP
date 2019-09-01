@@ -102,7 +102,7 @@ int diameter(int givenDistance[MAX][MAX], int vertexCount) {
     int *distancesTable[vertexCount];
     localVertexCount = vertexCount;
 
-#pragma omp parallel for copyin(localVertexCount)
+#pragma omp parallel for copyin(localVertexCount) num_threads(1)
     for (int fromVertex = 0; fromVertex < vertexCount; ++fromVertex) {
         distancesTable[fromVertex] = Dijkstra(fromVertex, localVertexCount, givenDistance);
     }
