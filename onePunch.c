@@ -135,7 +135,6 @@ int *Dijkstra(int fromVertex, int vertexCount, int graph[MAX][MAX]) {
 
     int minEdge, vertex = 0, searchedEdgesCount = 0;
     visitedVertex[fromVertex] = 1;
-    omp_set_num_threads(4);
 
     for (int i = 0; i < vertexCount; ++i) {
         visitedVertex[i] = 0;
