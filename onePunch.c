@@ -102,12 +102,6 @@ int diameter(int givenDistance[MAX][MAX], int vertexCount) {
     int *distancesTable[vertexCount];
     localVertexCount = vertexCount;
 
-//    for (int k = 0; k < vertexCount; ++k) {
-//        for (int i = 0; i < vertexCount; ++i) {
-//            localDistance[k][i] = givenDistance[k][i];
-//        }
-//    }
-
 #pragma omp parallel for copyin(localVertexCount)
     for (int fromVertex = 0; fromVertex < vertexCount; ++fromVertex) {
         distancesTable[fromVertex] = Dijkstra(fromVertex, localVertexCount, givenDistance);
@@ -117,17 +111,19 @@ int diameter(int givenDistance[MAX][MAX], int vertexCount) {
     int diameter = -1;
 
     for (int i = 0; i < vertexCount; ++i) {
+
         int maxDistance = 0;
-        for (int j = 0; j < vertexCount; ++j) {
+        for (int j = 0; j < localVertexCount; ++j) {
             if (*(distancesTable[i] + j) > maxDistance && *(distancesTable[i] + j) != NOT_CONNECTED)
                 maxDistance = *(distancesTable[i] + j);
         }
-
         if (maxDistance > diameter) {
             diameter = maxDistance;
         }
 
     }
+
+
 
     return diameter;
 }
