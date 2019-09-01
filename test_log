@@ -329,3 +329,35 @@ commit 1028d8c77f6a3b11a70d0b053fcac3aaeffe26ba
 [******** onePunch ********]
 
 [******** origin ********]
++--------------------------------------+
+commit 92ddf508a0abeef9b613916a48d820f67fc38ceb
+[*] problem size: 3333, max threads: 64
+     Saturday, Aug 31, 2019 04:18 PM
+
+[******** onePunch ********]
+Diameter 6
+Time: 9762202 us
+
+[******** origin ********]
+Diameter 6
+Time: 204934023 us
++--------------------------------------+
+commit 92ddf508a0abeef9b613916a48d820f67fc38ceb
+[*] problem size: 10000, max threads: 64
+     Saturday, Aug 31, 2019 04:23 PM
+
+[******** onePunch ********]
++--------------------------------------+
+commit 92ddf508a0abeef9b613916a48d820f67fc38ceb
+[*] problem size: 10000, max threads: 64
+     Saturday, Aug 31, 2019 04:26 PM
+
+[******** onePunch ********]
+Diameter 4
+Time: 301178293 us
+Diameter 4
+Time: 301059518 us
+
+[******** origin ********]
+Diameter 4
+Time: 5314451527 us
