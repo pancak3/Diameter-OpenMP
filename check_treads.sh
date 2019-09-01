@@ -7,7 +7,7 @@ one_time_check() {
 
   gcc -std=c99 -fopenmp getMaxThreads.c -o getMaxThreads
 #  MAX_THREADS=$(./getMaxThreads)
-  MAX_THREADS=$4
+  MAX_THREADS=$2
 
   gcc -std=c99 headers/randomgraph.c -o randomgraph
   gcc -std=c99 graph-diameter.c -o graph-diameter
@@ -83,7 +83,7 @@ else
   echo "[*]+--------+"
   for ((i = $1; i < $2 + 1; i += $3)); do
     echo "    Testing $i ... "
-    one_time_check $i
+    one_time_check $i $4
     echo -e "    done.\r\n\r\n"
   done
 
