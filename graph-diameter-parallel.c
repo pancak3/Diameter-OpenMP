@@ -91,9 +91,9 @@ int main() {
 
 int diameter(int distance[MAX][MAX], int nodesCount) {
     int i, j, k;
-#pragma omp parallel for
+
     for (int k = 0; k < nodesCount; ++k) {
-#pragma omp task
+#pragma omp parallel for
         for (int i = 0; i < nodesCount; ++i) {
             if (distance[i][k] != NOT_CONNECTED) {
                 for (int j = 0; j < nodesCount; ++j) {
@@ -105,21 +105,16 @@ int diameter(int distance[MAX][MAX], int nodesCount) {
             }
         }
     }
-#pragma omp taskwait
     int diameter = -1;
 
     /* look for the most distant pair */
-#pragma omp parallel for
-
     for (int i = 0; i < nodesCount; ++i) {
-#pragma omp task
         for (int j = 0; j < nodesCount; ++j) {
             if (distance[i][j] != NOT_CONNECTED && diameter < distance[i][j]) {
                 diameter = distance[i][j];
             }
         }
     }
-#pragma omp taskwait
 
 
     return (diameter);
