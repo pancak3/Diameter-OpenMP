@@ -88,23 +88,45 @@ int main() {
 /******************************************************************************/
 /*  Your changes here */
 #include "omp.h"
+#include "pthread.h"
+#include "threadqueue.c"
+
+void *floydsParallel();
+
+void *findDiameter();
+
+struct DistanceUpdateTask {
+    int i;
+    int j;
+    int value;
+};
+
+struct threadqueue *distanceUpdateQueue;
+
+thread_queue_init(struct threadqueue *distanceUpdateQueue);
+
+int distanceGlobal[MAX][MAX];
+int nodesCountGlobal;
+int nodesCountLocal;
+
+
+#pragma omp threadprivate(nodesCountLocal)
 
 int diameter(int distance[MAX][MAX], int nodesCount) {
-    int i, j, k;
 
-    for (int k = 0; k < nodesCount; ++k) {
+    nodesCountGlobal = nodesCount;
 #pragma omp parallel for
+    for (int l = 0; l < nodesCount; ++l) {
         for (int i = 0; i < nodesCount; ++i) {
-            if (distance[i][k] != NOT_CONNECTED) {
-                for (int j = 0; j < nodesCount; ++j) {
-                    if (distance[k][j] != NOT_CONNECTED &&
-                        (distance[i][j] == NOT_CONNECTED || distance[i][k] + distance[k][j] < distance[i][j])) {
-                        distance[i][j] = distance[i][k] + distance[k][j];
-                    }
-                }
-            }
+            distanceGlobal[l][i] = distance[l][i];
         }
     }
+
+    pthread_t thread_id;
+    pthread_create(&thread_id, NULL, floydsParallel, NULL);
+    pthread_join(thread_id, NULL);
+
+
     int diameter = -1;
 
     /* look for the most distant pair */
@@ -115,10 +137,34 @@ int diameter(int distance[MAX][MAX], int nodesCount) {
             }
         }
     }
-
-
     return (diameter);
 }
 
+void *floydsParallel() {
+
+    nodesCountLocal = nodesCountGlobal;
+#pragma omp parallel for copyin(nodesCountLocal)
+    for (int k = 0; k < nodesCountGlobal; ++k) {
+        for (int i = 0; i < nodesCountLocal; ++i) {
+            if (distance[i][k] != NOT_CONNECTED) {
+                for (int j = 0; j < nodesCountLocal; ++j) {
+                    if (distance[k][j] != NOT_CONNECTED &&
+                        (distance[i][j] == NOT_CONNECTED || distance[i][k] + distance[k][j] < distance[i][j])) {
+//                        distance[i][j] = distance[i][k] + distance[k][j];
+                        struct DistanceUpdateTask task;
+                        task.i = i;
+                        task.j = j;
+                        task.value = distance[i][k] + distance[k][j];
+                        thread_queue_add(distanceUpdateQueue, task, 0);
+                    }
+                }
+            }
+        }
+    }
+}
+
+void *findDiameter() {
+
+}
 /* The following is the exact command used to compile this code */
 /* g++ -O2 graph-diameter.cpp -o graph-diameter */
