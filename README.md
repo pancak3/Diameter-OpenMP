@@ -4,6 +4,8 @@
 + GCC
 ## Compile
 ```shell script
+cd $PROJECT_PATH
+mkdir bin -p
 gcc -std=c99 headers/randomgraph.c -o bin/randomgraph
 gcc -std=c99 graph-diameter.c -o bin/graph-diameter-sequential
 gcc -std=c99 -fopenmp onePunch.c -o bin/graph-diameter-parallel
